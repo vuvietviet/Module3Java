@@ -1,1 +1,1 @@
-SELECT * FROM student_management.student;
+SELECT * FROM student_management.class;
