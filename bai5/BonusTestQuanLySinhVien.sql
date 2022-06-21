@@ -60,7 +60,8 @@ select * from Students;
 
 select * from Subjects;
 
-select s.studentID,s.studentName,avg(m.mark) from Students s
+select s.studentID,s.studentName,avg(m.mark)
+from Students s
 join Marks m on s.studentID = m.studentID
 group by s.studentID,s.studentName;
 
@@ -75,6 +76,18 @@ order by mark desc;
 alter table subjects
 modify column subjectName varchar(255);
 
+alter table ClassStudent
+drop constraint classstudent_ibfk_1;
+
+alter table ClassStudent
+drop constraint classstudent_ibfk_2;
+
+alter table Marks
+drop constraint marks_ibfk_1;
+
+alter table Marks
+drop constraint marks_ibfk_2;
+
 delete from Students 
 where studentID = 1;
 
@@ -82,8 +95,7 @@ alter table Students
 add column Status bit default 1;
 
 update Students
-set status = 0;
--- 7 k biet lam
--- 9 chac la xoa cac khoa ngoai
--- 10 vi chua lam cau 9 nen co rang buoc nen k the xoa
--- 12 dung cach tren mang nhung lam thi bao loi, neu khong thi phai sua default 0
+set status = 0
+where studentID > 0;
+-- câu 7 vì ít record nên có thể update thủ công từng dòng
+-- câu 10 có thể cho tham chiếu bằng null thì có thể xóa mà không cần xóa quan hệ 
