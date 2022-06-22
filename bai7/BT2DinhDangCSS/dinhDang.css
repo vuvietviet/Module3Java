@@ -1,0 +1,17 @@
+#id_1 {
+    text-indent: 50px;
+}
+.boldText {
+    font-weight: bold;
+}
+#id_2 {
+    color: deepskyblue;
+}
+#id_3 {
+    color: mediumblue;
+}
+#id_4 {
+    color: mediumblue;
+    wight: 1px;
+    height: 1px;
+}
