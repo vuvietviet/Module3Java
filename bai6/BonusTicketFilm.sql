@@ -120,4 +120,7 @@ alter table tblGhe drop foreign key tblghe_ibfk_1;
 delete from tblGhe where gheID > 0;
 
 -- cau 14
-select now() as Now, addtime(now(),5000 * 60) as 'Now5000';
+	-- cach 1: đổi 5000 phút thành 83:20:00
+select now() as Now, addtime(now(),832000) as 'Now5000';
+	-- cach 2
+SELECT date_add(now(),INTERVAL 5000 MINUTE) AS 'Now5000';
