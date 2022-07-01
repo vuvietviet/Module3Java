@@ -13,7 +13,9 @@ public class UserDAO implements IUserDAO{
 
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, email, country) VALUES (?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
+    private static final String SELECT_USER_BY_COUNTRY = "select id,name,email,country from users where country =?";
     private static final String SELECT_ALL_USERS = "select * from users";
+    private static final String SELECT_ALL_USERS_TO_SORT = "select * from users order by name";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
 
@@ -73,6 +75,31 @@ public class UserDAO implements IUserDAO{
     }
 
     @Override
+    public List<User> selectUserByCountry(String country) {
+        List<User> userList = new ArrayList<>();
+        // Step 1: Establishing a Connection - thiết lập kết nối
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object - Tạo một câu lệnh bằng cách sử dụng đối tượng kết nối
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_COUNTRY);) {
+            preparedStatement.setString(1, country);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query - Thực thi truy vấn hoặc cập nhật truy vấn
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object - Xử lý đối tượng ResultSet.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                userList.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return userList;
+    }
+
+    @Override
     public List<User> selectAllUsers() {
         // using try-with-resources to avoid closing resources (boiler plate code) -sử dụng try-with-resources để tránh đóng tài nguyên
         List<User> users = new ArrayList<>();
@@ -97,6 +124,27 @@ public class UserDAO implements IUserDAO{
             printSQLException(e);
         }
         return users;
+    }
+
+    @Override
+    public List<User> selectAllUsersToSort() {
+        List<User> userList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS_TO_SORT);) {
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                userList.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return userList;
     }
 
     @Override

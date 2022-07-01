@@ -16,6 +16,13 @@
     <h1>User Management</h1>
     <h2>
         <a href="/users?action=create">Add New User</a>
+        <a href="/users?action=sort">Sort By Name</a>
+        <form method="post" action="/users?action=search">
+
+            <input type="text" name="country" id="country" placeholder="Country">
+            <input type="submit" value="Search">
+
+        </form>
     </h2>
 </center>
 <div align="center">
