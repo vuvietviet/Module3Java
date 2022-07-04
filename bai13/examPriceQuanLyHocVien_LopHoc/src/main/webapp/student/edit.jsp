@@ -90,9 +90,16 @@
             <tr>
                 <th>Student Class Name:</th>
                 <td>
-                    <input type="text" name="nameClass" size="45"
-                           value="<c:out value='${student.nameClass}' />"
-                    />
+                    <select name="nameClass" style="width: 372px" >
+                        <c:forEach var="list" items="${classes}">
+                            <c:if test="${list.equals(student.nameClass)}">
+                                <option selected = "selected"><c:out value="${list}"/></option>
+                            </c:if>
+                            <c:if test="${!list.equals(student.nameClass)}">
+                                <option><c:out value="${list}"/></option>
+                            </c:if>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>

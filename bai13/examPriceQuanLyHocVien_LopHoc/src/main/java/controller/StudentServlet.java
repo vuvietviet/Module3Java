@@ -96,8 +96,10 @@ public class StudentServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Student existingStudent = studentDAO.selectStudent(id);
+        List<String> classes = studentDAO.selectAllClasses();
         RequestDispatcher dispatcher = request.getRequestDispatcher("student/edit.jsp");
         request.setAttribute("student", existingStudent);
+        request.setAttribute("classes",classes);
         dispatcher.forward(request, response);
     }
 
@@ -148,7 +150,7 @@ public class StudentServlet extends HttpServlet {
     private void searchStudentByName(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         String name = request.getParameter("name");
-        List<Student> students = studentDAO.selectUserByName(name);
+        List<Student> students = studentDAO.selectStudentByName(name);
         RequestDispatcher dispatcher = request.getRequestDispatcher("student/search.jsp");
         request.setAttribute("students", students);
         dispatcher.forward(request, response);

@@ -11,7 +11,7 @@ import java.util.List;
 public class StudentDAO {
     private static final String INSERT_STUDENT_SQL = "INSERT INTO Student (id,name,dateOfBirth,address,phoneNumber, email, nameClass) VALUES (?, ?, ?,?,?,?,?);";
     private static final String SELECT_STUDENT_BY_ID = "select * from student where id = ?;";
-    private static final String SELECT_STUDENT_BY_NAME = "select * from student where name = ?;";
+    private static final String SELECT_STUDENT_BY_NAME = "select * from student where name LIKE concat('%',?,'%');";
     private static final String SELECT_ALL_STUDENTS = "select * from student;";
     private static final String SELECT_ALL_CLASSES = "select * from class;";
     private static final String DELETE_STUDENT_SQL = "delete from Student where id = ?;";
@@ -107,7 +107,7 @@ public class StudentDAO {
         return classes;
     }
 
-    public List<Student> selectUserByName(String name) {
+    public List<Student> selectStudentByName(String name) {
         List<Student> students = new ArrayList<>();
         try (Connection connection = Connect_MySQL.getConnection()) {
             assert connection != null;
@@ -117,12 +117,13 @@ public class StudentDAO {
                 ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
+                    String name1 = rs.getString("name");
                     LocalDate dateOfBirth = LocalDate.parse(rs.getString("dateOfBirth"));
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phoneNumber");
                     String email = rs.getString("email");
                     String nameClass = rs.getString("nameClass");
-                    students.add(new Student(id, name, dateOfBirth,address,phoneNumber,email,nameClass));
+                    students.add(new Student(id, name1, dateOfBirth,address,phoneNumber,email,nameClass));
                 }
             }
         } catch (SQLException e) {
