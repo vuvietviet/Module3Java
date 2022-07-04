@@ -4,6 +4,7 @@ import connect.Connect_MySQL;
 import model.Student;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class StudentDAO {
             try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENT_SQL)) {
                 preparedStatement.setInt(1, student.getId());
                 preparedStatement.setString(2, student.getName());
-                preparedStatement.setString(3, student.getDateOfBirth());
+                preparedStatement.setString(3, String.valueOf(student.getDateOfBirth()));
                 preparedStatement.setString(4, student.getAddress());
                 preparedStatement.setString(5, student.getPhoneNumber());
                 preparedStatement.setString(6, student.getEmail());
@@ -49,7 +50,7 @@ public class StudentDAO {
 
                 while (rs.next()) {
                     String name = rs.getString("name");
-                    String dateOfBirth = rs.getString("dateOfBirth");
+                    LocalDate dateOfBirth = LocalDate.parse(rs.getString("dateOfBirth"));
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phoneNumber");
                     String email = rs.getString("email");
@@ -75,7 +76,7 @@ public class StudentDAO {
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     String name = rs.getString("name");
-                    String dateOfBirth = rs.getString("dateOfBirth");
+                    LocalDate dateOfBirth = LocalDate.parse(rs.getString("dateOfBirth"));
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phoneNumber");
                     String email = rs.getString("email");
@@ -116,7 +117,7 @@ public class StudentDAO {
                 ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    String dateOfBirth = rs.getString("dateOfBirth");
+                    LocalDate dateOfBirth = LocalDate.parse(rs.getString("dateOfBirth"));
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phoneNumber");
                     String email = rs.getString("email");
@@ -150,7 +151,7 @@ public class StudentDAO {
             assert connection != null;
             try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STUDENT_SQL);) {
                 preparedStatement.setString(1, student.getName());
-                preparedStatement.setString(2, student.getDateOfBirth());
+                preparedStatement.setString(2, String.valueOf(student.getDateOfBirth()));
                 preparedStatement.setString(3, student.getAddress());
                 preparedStatement.setString(4, student.getPhoneNumber());
                 preparedStatement.setString(5, student.getEmail());

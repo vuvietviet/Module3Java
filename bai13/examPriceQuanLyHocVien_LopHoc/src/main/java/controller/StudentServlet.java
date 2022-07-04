@@ -9,6 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -113,7 +114,7 @@ public class StudentServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        String dateOfBirth = request.getParameter("dateOfBirth");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
@@ -127,7 +128,7 @@ public class StudentServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        String dateOfBirth = request.getParameter("dateOfBirth");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");

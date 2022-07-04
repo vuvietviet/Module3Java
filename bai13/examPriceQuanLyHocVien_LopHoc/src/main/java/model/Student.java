@@ -1,12 +1,13 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Student {
     private int id;
     private String name;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String address;
     private String phoneNumber;
     private String email;
@@ -15,7 +16,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(int id, String name, String dateOfBirth, String address, String phoneNumber, String email, String nameClass) {
+    public Student(int id, String name, LocalDate dateOfBirth, String address, String phoneNumber, String email, String nameClass) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -41,11 +42,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
