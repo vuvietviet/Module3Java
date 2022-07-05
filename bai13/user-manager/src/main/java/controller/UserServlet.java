@@ -40,6 +40,9 @@ public class UserServlet extends HttpServlet {
                 case "sort":
                     sortUser(request, response);
                     break;
+                case "permision":
+                    addUserPermision(request, response);
+                    break;
                 default:
                     listUser(request, response);
                     break;
@@ -105,6 +108,12 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
 
+    }
+
+    private void addUserPermision(HttpServletRequest request, HttpServletResponse response) {
+        User user = new User("quan", "quan.nguyen@codegym.vn", "vn");
+        int[] permision = {1, 2, 4};
+        userDAO.addUserTransaction(user, permision);
     }
 
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
