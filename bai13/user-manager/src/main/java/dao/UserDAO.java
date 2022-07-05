@@ -263,9 +263,7 @@ public class UserDAO implements IUserDAO{
             }
             System.out.println(ex.getMessage());
         } finally {
-
             try {
-
                 if (rs != null) rs.close();
                 if (pstmt != null) pstmt.close();
                 if (pstmtAssignment != null) pstmtAssignment.close();
